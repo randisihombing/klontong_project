@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../helper/utils.dart';
 import '../provider/product_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class _ProductViewState extends State<ProductView> {
   final ScrollController _scrollController = ScrollController();
 
   late ProductProvider productProvider;
+
   @override
   void initState() {
     super.initState();
@@ -85,6 +87,12 @@ class _ProductViewState extends State<ProductView> {
                     return ListTile(
                       title: Text(product.name ?? ""),
                       subtitle: Text('\$${product.price.toString()}'),
+                      trailing: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.memory(Utils.convertBase64Image(product.image!),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => DetailProduct(product: product,)),
